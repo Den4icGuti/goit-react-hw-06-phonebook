@@ -1,18 +1,19 @@
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 import ListItem from "components/ListItem/ListItem";
 import styles from './UserList.module.css';
 
-const UserList = ({ item, deleteContact}) => {
+const UserList = ({deleteContact }) => {
+  const item = useSelector(state => state.contacts.items)
   return (
     <div className={styles.ListUsers}>
       <ul className={styles.list}>
-        {item.map(({ id, name, number }) => (
+        {item.map(items => (
           <ListItem
             className={styles.item}
-            key={id}
-            name={name}
-            number={number}
-            onClick={() => deleteContact(id)}
+            key={items.id}
+            {...items}
+            deleteContact={deleteContact}
           />
         ))}
       </ul>

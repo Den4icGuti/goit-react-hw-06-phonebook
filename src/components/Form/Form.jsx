@@ -1,13 +1,21 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { useDispatch,useSelector } from "react-redux";
+import { addContact } from "redux/slice";
 import styles from './Form.module.css';
+import 'react-toastify/dist/ReactToastify.css'
 
-const Form = ({onSubmit}) => { 
+
+const Form = () => { 
+  const dispatch = useDispatch();
+  const item = useSelector(state => state.contacts.items);
+ 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  
-//===Метод меняющий состояние в полях===//
-  const onHandleChange = e => {
+   
+
+
+   const onHandleChange = e => {
     const { name, value } = e.target;
 
     switch (name) {
@@ -23,6 +31,8 @@ const Form = ({onSubmit}) => {
     }
   };
 
+  
+
   //===Функция сброса полей после отправки формы===//
   const resetForm = () => { 
     setName("");
@@ -32,12 +42,24 @@ const Form = ({onSubmit}) => {
   //===Функция отправки формы===//
   const onHandleSubmit = e => {
     e.preventDefault();
-    onSubmit(name,number)
+    if (item.some((items) => items.name === name)) { 
+     alert('error')
+      return;
+    }
+    if (item.some((items) => items.number === number)) { 
+      alert('error');
+      return;
+    }
+    dispatch(addContact({ name, number }))
     resetForm()
   };
 
+
+
   return (
+   
     <form onSubmit={onHandleSubmit} className={styles.Form}>
+      
       <h2>Phonebook</h2>
       <label className={styles.label}>Name
         <input
