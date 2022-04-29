@@ -5,25 +5,15 @@ import Filter from './Filter/Filter';
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
- 
- //===Метод который ищет пользователя по имени===//
-  // const onSerchByName = () => {
-  //   const normalize = filter.toLowerCase();
-  //   // return contacts.filter(contact => contact.name.toLowerCase().includes(normalize))
-  // };
   return (
     <div>
       <Form />
-      <Filter
-        title="Contacts"
-      />
+      <Filter title="Contacts" />
       <UserList
       // item={search}
       />
     </div>
   );
-  
-}
+};
 
 export default App;
-
